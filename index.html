@@ -75,9 +75,9 @@
             <pagination-bar :pagination-data="paginationData"></pagination-bar>
         </div>
 
-        <product-modal :get-product="getProduct" :modal-status="modalStatus" @close-modal="closeModal"></product-modal>
+        <product-modal :get-product="getProduct" :modal-data="modalProductData" :modal-status="modalStatus" @close-modal="closeModal"></product-modal>
         <delete-modal :get-product="getProduct" :temp-data="tempProductData" @close-modal="closeModal"></delete-modal>
-        
+
     </div>
     <script type="text/x-template" id="productModal">
         <div id="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
@@ -118,18 +118,18 @@
                                     <div class="mb-3" v-if="insertImageMode==='main'">
                                         <label for="imageUrl" class="form-label">主要圖片網址</label>
                                         <input id="imageUrl" type="text" class="form-control" placeholder="請輸入圖片連結"
-                                            v-model="modalProductData.imageUrl">
-                                        <img v-if="modalProductData.imageUrl" class="img-fluid"
-                                            :src="modalProductData.imageUrl" alt="">
+                                            v-model="modalData.imageUrl">
+                                        <img v-if="modalData.imageUrl" class="img-fluid"
+                                            :src="modalData.imageUrl" alt="">
 
                                     </div>
                                     <div class="mb-3" v-else>
 
-                                        <div class="mb-3" v-for="(image,index) of modalProductData.imagesUrl"
+                                        <div class="mb-3" v-for="(image,index) of modalData.imagesUrl"
                                             :key="index">
                                             <label class="form-label">{{`圖片${index+1}網址`}}</label>
                                             <input type="text" class="form-control" placeholder="請輸入圖片連結"
-                                                v-model="modalProductData.imagesUrl[index]">
+                                                v-model="modalData.imagesUrl[index]">
 
                                             <img class="img-fluid" :src="image" alt="">
 
@@ -162,19 +162,19 @@
                                 <div class="mb-3">
                                     <label for="title" class="form-label">標題</label>
                                     <input id="title" type="text" class="form-control" placeholder="請輸入標題"
-                                        v-model="modalProductData.title">
+                                        v-model="modalData.title">
                                 </div>
 
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="category" class="form-label">分類</label>
                                         <input id="category" type="text" class="form-control" placeholder="請輸入分類"
-                                            v-model="modalProductData.category">
+                                            v-model="modalData.category">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="price" class="form-label">單位</label>
                                         <input id="unit" type="text" class="form-control" placeholder="請輸入單位"
-                                            v-model="modalProductData.unit">
+                                            v-model="modalData.unit">
                                     </div>
                                 </div>
 
@@ -182,12 +182,12 @@
                                     <div class="mb-3 col-md-6">
                                         <label for="origin_price" class="form-label">原價</label>
                                         <input id="origin_price" type="number" min="0" class="form-control"
-                                            placeholder="請輸入原價" v-model="modalProductData.origin_price">
+                                            placeholder="請輸入原價" v-model="modalData.origin_price">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="price" class="form-label">售價</label>
                                         <input id="price" type="number" min="0" class="form-control" placeholder="請輸入售價"
-                                            v-model="modalProductData.price">
+                                            v-model="modalData.price">
                                     </div>
                                 </div>
                                 <hr>
@@ -195,19 +195,19 @@
                                 <div class="mb-3">
                                     <label for="description" class="form-label">產品描述</label>
                                     <textarea id="description" type="text" class="form-control" placeholder="請輸入產品描述"
-                                        v-model="modalProductData.description">
+                                        v-model="modalData.description">
                     </textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="content" class="form-label">說明內容</label>
                                     <textarea id="description" type="text" class="form-control" placeholder="請輸入說明內容"
-                                        v-model="modalProductData.content">
+                                        v-model="modalData.content">
                     </textarea>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-check">
                                         <input id="is_enabled" class="form-check-input" type="checkbox" :true-value="1"
-                                            :false-value="0" v-model="modalProductData.is_enabled">
+                                            :false-value="0" v-model="modalData.is_enabled">
                                         <label class="form-check-label" for="is_enabled">是否啟用</label>
                                     </div>
                                 </div>

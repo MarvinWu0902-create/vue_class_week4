@@ -13,6 +13,9 @@ const app = createApp({
             pageShow: false,
             productData: [],
             paginationData: [],
+            modalProductData: {
+                imagesUrl: []
+            },
             tempProductData: {},
             modalStatus: '',
         }
@@ -88,7 +91,7 @@ const app = createApp({
             }
             if (this.modalStatus === 'add' || this.modalStatus === 'edit') {
                 productModal.hide();
-                // this.modalProductData = {};
+                this.modalProductData = {};
             }
             this.modalStatus = '';
 
@@ -104,12 +107,10 @@ const app = createApp({
 // 全域註冊一波
 app.component('productModal', {
     template: '#productModal',
-    props: ['getProduct', 'modalStatus'],
+    props: ['getProduct', 'modalStatus', 'modalData'],
     data() {
         return {
-            modalProductData: {
-                imagesUrl: []
-            },
+            // modalProductData: { ...this.modalData },
             insertImageMode: 'main',
         }
     },
@@ -117,7 +118,7 @@ app.component('productModal', {
         addProduct() {
 
             return axios.post(`https://ec-course-api.hexschool.io/v2/api/${apiPath}/admin/product`, {
-                data: this.modalProductData
+                data: this.modalData
             })
                 .then((res) => {
                     this.closeModal();
@@ -132,7 +133,7 @@ app.component('productModal', {
         editProduct(id) {
             return axios.put(`https://ec-course-api.hexschool.io/v2/api/${apiPath}/admin/product/${id}`,
                 {
-                    data: this.modalProductData
+                    data: this.modalData
                 }
             )
                 .then((res) => {
@@ -145,13 +146,12 @@ app.component('productModal', {
                 })
         },
         addImage() {
-            this.modalProductData.imagesUrl.push('');
+            this.modalData.imagesUrl.push('');
         },
         deleteImage() {
-            this.modalProductData.imagesUrl.splice(this.modalProductData.imagesUrl.length - 1, 1);
+            this.modalData.imagesUrl.splice(this.modalData.imagesUrl.length - 1, 1);
         },
         closeModal() { ///emit
-            this.modalProductData = {};
             this.$emit('close-modal');
         },
         sendProductData() {
@@ -159,7 +159,7 @@ app.component('productModal', {
                 return this.addProduct()
             }
             if (this.modalStatus === 'edit') {
-                return this.editProduct(this.modalProductData.id)
+                return this.editProduct(this.modalData.id)
             }
         }
     },
