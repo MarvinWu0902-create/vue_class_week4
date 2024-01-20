@@ -110,7 +110,6 @@ app.component('productModal', {
     props: ['getProduct', 'modalStatus', 'modalData'],
     data() {
         return {
-            // modalProductData: { ...this.modalData },
             insertImageMode: 'main',
         }
     },
